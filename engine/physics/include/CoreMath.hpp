@@ -11,7 +11,9 @@
 /** @brief Small value used for floating-point equality comparisons and singularity checks. */
 static const float EPSILON = 0.0001f;
 /** @brief Mathematical constant PI. */
+#ifndef PI
 static const float PI = 3.14159265359f;
+#endif
 
 struct Vec3;
 struct Mat3;

@@ -31,8 +31,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
@@ -43,39 +41,15 @@ jobs:
             libxcursor-dev \
             libxi-dev \
             libxinerama-dev \
-            libudev-dev \
             libgl1-mesa-dev \
             libglu1-mesa-dev \
-            libopenal-dev \
-            libvorbis-dev \
-            libflac-dev \
-            xorg-dev \
-            libfreetype-dev \
-            libharfbuzz-dev
-
-      - name: Install macOS dependencies
-        if: runner.os == 'macOS'
-        run: |
-          brew install \
-            sfml \
-            glfw \
-            freetype \
-            harfbuzz
+            xorg-dev
 
       - name: Configure CMake
         shell: bash
         run: |
           cmake -B build \
-            -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} \
-            -DSFML_BUILD_EXAMPLES=OFF \
-            -DSFML_BUILD_TEST_PROGRAMS=OFF \
-            -DSFML_BUILD_DOC=OFF \
-            -DSFML_INSTALL=OFF \
-            -DSFML_BUILD_NETWORK=OFF \
-            -DSFML_BUILD_AUDIO=OFF \
-            -DGLFW_BUILD_DOCS=OFF \
-            -DGLFW_BUILD_TESTS=OFF \
-            -DGLFW_BUILD_EXAMPLES=OFF
+            -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
 
       - name: Build
         shell: bash
@@ -140,5 +114,4 @@ jobs:
             build/Release/BroadPhasePerformanceTest.exe
             build/Release/BoundaryTest.exe
             build/Release/FrictionTest.exe
-            build/Release/*.dll
           retention-days: 7
